@@ -29,6 +29,7 @@ do
                 PedirDatos();
                 break;
             case 2:
+            
                 break;
             case 3:
                 break;
@@ -52,6 +53,7 @@ void PedirDatos()
             ValidacionDatosP();
             break;
         case 2:
+            ValidacionDatoS();
             break;
         case 3:
             break;
@@ -167,6 +169,119 @@ void ValidacionDatosP() //pelicula
         if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.");
         if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
         Console.WriteLine("Precione ENTER o cualquier letra para ir al menú");
+        Console.ReadKey();
+    }
+}
+void ValidacionDatoS() //Serie
+{
+    Console.WriteLine("Ingrese el nombre de la Serie:");
+    string nombreSerie = Console.ReadLine();
+
+    Console.WriteLine("¿Cual es la duración de la Serie? (20-90 min):");
+    int duracionSerie;
+    while (!int.TryParse(Console.ReadLine(), out duracionSerie) || duracionSerie < 20 || duracionSerie > 90)
+    {
+        Console.WriteLine("Error: Ingrese una duración válida para serie (20-90 min):");
+    }
+    cumpleDuracion = true;
+
+    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
+    int clasificacionDOS;
+    while (!int.TryParse(Console.ReadLine(), out clasificacionDOS) || clasificacionDOS < 1 || clasificacionDOS > 3)
+    {
+        Console.WriteLine("Error: Ingrese clasificación valida.");
+    }
+
+    Console.WriteLine("Ingrese la hora programada (0-23):");
+    int horaDos;
+    while (!int.TryParse(Console.ReadLine(), out horaDos) || horaDos < 0 || horaDos > 23)
+    {
+        Console.WriteLine("Error: Ingrese una hora válida (0-23):");
+    }
+
+    if (clasificacionDOS == 1)
+    {
+        cumpleHora = true;
+    }
+    else if (clasificacionDOS == 2)
+    {
+        if (horaDos >= 6 && horaDos <= 22)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+    else if (clasificacionDOS == 3)
+    {
+        if (horaDos >= 22 || horaDos <= 5)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+
+    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto)");
+    int produccionDos;
+    while (!int.TryParse(Console.ReadLine(), out produccionDos) || produccionDos < 1 || produccionDos > 3)
+    {
+        Console.WriteLine("Error: Ingrese un nivel válido.");
+    }
+
+    if (produccionDos == 1 && clasificacionDOS == 3)
+    {
+        cumpleProduccion = false;
+    }
+    else
+    {
+        cumpleProduccion = true;
+    }
+
+    Console.WriteLine("\n  Resultado de la Evaluación ");
+    totalEvaluados++;
+
+    if (cumpleDuracion && cumpleHora && cumpleProduccion)
+    {
+        if (produccionDos == 3 || duracionSerie > 120 || (horaDos >= 20 && horaDos <= 23))
+        {
+            impactoAlto++;
+            revision++;
+            Console.WriteLine("Estado: ENVIAR A REVISIÓN");
+            Console.WriteLine("Razón: El contenido tiene impacto ALTO.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else if (produccionDos == 2 || (duracionSerie >= 60 && duracionSerie <= 120))
+        {
+            impactoMedio++;
+            publicados++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: El contenido tiene impacto MEDIO.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else
+        {
+            impactoBajo++;
+            publicados++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: El contenido tiene impacto BAJO.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+    }
+    else
+    {
+        rechazados++;
+        Console.WriteLine("Estado: Rechazar");
+        if (!cumpleHora) Console.WriteLine("Razón: El horario no es apto para la clasificación.");
+        if (!cumpleProduccion) Console.WriteLine("Razón: Producción baja no permitida para la clasificación.\n");
+        Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
         Console.ReadKey();
     }
 }
