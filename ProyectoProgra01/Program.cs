@@ -285,3 +285,231 @@ void ValidacionDatoS() //Serie
         Console.ReadKey();
     }
 }
+void ValidarDatosD() //Documental
+{
+    Console.WriteLine("Ingrese el nombre del Documental:");
+    string nombreDocumental = Console.ReadLine();
+
+    Console.WriteLine("¿Cual es la duración del Documental? (30-120 min):");
+    int duracionDocu;
+    while (!int.TryParse(Console.ReadLine(), out duracionDocu) || duracionDocu < 30 || duracionDocu > 120)
+    {
+        Console.WriteLine("Error: Ingrese una duración válida para documental (30-120 min):");
+    }
+    cumpleDuracion = true;
+
+    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
+    int clasificacionTres;
+    while (!int.TryParse(Console.ReadLine(), out clasificacionTres) || clasificacionTres < 1 || clasificacionTres > 3)
+    {
+        Console.WriteLine("Error: Ingrese clasificación valida.");
+    }
+
+    Console.WriteLine("Ingrese la hora programada (0-23):");
+    int horaTres;
+    while (!int.TryParse(Console.ReadLine(), out horaTres) || horaTres < 0 || horaTres > 23)
+    {
+        Console.WriteLine("Error: Ingrese una hora válida (0-23):");
+    }
+
+    if (clasificacionTres == 1)
+    {
+        cumpleHora = true;
+    }
+    else if (clasificacionTres == 2)
+    {
+        if (horaTres >= 6 && horaTres <= 22)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+    else if (clasificacionTres == 3)
+    {
+        if (horaTres >= 22 || horaTres <= 5)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+
+
+    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto)");
+    int produccionTres;
+    while (!int.TryParse(Console.ReadLine(), out produccionTres) || produccionTres < 1 || produccionTres > 3)
+    {
+        Console.WriteLine("Error: Ingrese un nivel válido.");
+    }
+
+    if (produccionTres == 1 && clasificacionTres == 3)
+    {
+        cumpleProduccion = false;
+    }
+    else
+    {
+        cumpleProduccion = true;
+    }
+
+    Console.WriteLine("\n   Resultado de la Evaluación   ");
+    totalEvaluados++;
+
+    if (cumpleDuracion && cumpleHora && cumpleProduccion)
+    {
+        if (produccionTres == 3 || (horaTres >= 20 && horaTres <= 23))
+        {
+            revision++;
+            impactoAlto++;
+            Console.WriteLine("Estado: ENVIAR A REVISIÓN");
+            Console.WriteLine("Razón: Cumple reglas pero tiene impacto alto.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else if (produccionTres == 2)
+        {
+            publicados++;
+            impactoMedio++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: Cumple reglas e impacto medio.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else
+        {
+            publicados++;
+            impactoBajo++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: Cumple reglas e impacto bajo.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+    }
+    else
+    {
+        rechazados++;
+        Console.WriteLine("Estado: Rechazar");
+        if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.\n");
+        if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
+        Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+        Console.ReadKey();
+    }
+}
+void ValidarDatosD() //Documental
+{
+    Console.WriteLine("Ingrese el nombre del Documental:");
+    string nombreDocumental = Console.ReadLine();
+
+    Console.WriteLine("¿Cual es la duración del Documental? (30-120 min):");
+    int duracionDocu;
+    while (!int.TryParse(Console.ReadLine(), out duracionDocu) || duracionDocu < 30 || duracionDocu > 120)
+    {
+        Console.WriteLine("Error: Ingrese una duración válida para documental (30-120 min):");
+    }
+    cumpleDuracion = true;
+
+    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
+    int clasificacionTres;
+    while (!int.TryParse(Console.ReadLine(), out clasificacionTres) || clasificacionTres < 1 || clasificacionTres > 3)
+    {
+        Console.WriteLine("Error: Ingrese clasificación valida.");
+    }
+
+    Console.WriteLine("Ingrese la hora programada (0-23):");
+    int horaTres;
+    while (!int.TryParse(Console.ReadLine(), out horaTres) || horaTres < 0 || horaTres > 23)
+    {
+        Console.WriteLine("Error: Ingrese una hora válida (0-23):");
+    }
+
+    if (clasificacionTres == 1)
+    {
+        cumpleHora = true;
+    }
+    else if (clasificacionTres == 2)
+    {
+        if (horaTres >= 6 && horaTres <= 22)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+    else if (clasificacionTres == 3)
+    {
+        if (horaTres >= 22 || horaTres <= 5)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+
+
+    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto)");
+    int produccionTres;
+    while (!int.TryParse(Console.ReadLine(), out produccionTres) || produccionTres < 1 || produccionTres > 3)
+    {
+        Console.WriteLine("Error: Ingrese un nivel válido.");
+    }
+
+    if (produccionTres == 1 && clasificacionTres == 3)
+    {
+        cumpleProduccion = false;
+    }
+    else
+    {
+        cumpleProduccion = true;
+    }
+
+    Console.WriteLine("\n   Resultado de la Evaluación   ");
+    totalEvaluados++;
+
+    if (cumpleDuracion && cumpleHora && cumpleProduccion)
+    {
+        if (produccionTres == 3 || (horaTres >= 20 && horaTres <= 23))
+        {
+            revision++;
+            impactoAlto++;
+            Console.WriteLine("Estado: ENVIAR A REVISIÓN");
+            Console.WriteLine("Razón: Cumple reglas pero tiene impacto alto.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else if (produccionTres == 2)
+        {
+            publicados++;
+            impactoMedio++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: Cumple reglas e impacto medio.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else
+        {
+            publicados++;
+            impactoBajo++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: Cumple reglas e impacto bajo.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+    }
+    else
+    {
+        rechazados++;
+        Console.WriteLine("Estado: Rechazar");
+        if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.\n");
+        if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
+        Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+        Console.ReadKey();
+    }
+}
