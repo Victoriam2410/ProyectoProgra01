@@ -26,6 +26,7 @@ do
         switch (option)
         {
             case 1:
+                PedirDatos();
                 break;
             case 2:
                 break;
@@ -48,6 +49,7 @@ void PedirDatos()
     switch (tipo)
     {
         case 1:
+            ValidacionDatosP();
             break;
         case 2:
             break;
