@@ -1,6 +1,17 @@
 ﻿//variables globales
 int option = 0;
 int tipo;
+int duracionPeli;
+bool cumpleDuracion = false;
+bool cumpleHora = false;
+bool cumpleProduccion = true;
+double totalEvaluados = 0;
+double publicados = 0;
+double rechazados = 0;
+int revision = 0;
+int impactoAlto = 0;
+int impactoMedio = 0;
+int impactoBajo = 0;
 MenuPrincipal();
 //inicio del menu
 void MenuPrincipal()
@@ -44,5 +55,116 @@ void PedirDatos()
             break;
         case 4:
             break;
+    }
+}
+void ValidacionDatosP() //pelicula
+{
+    Console.WriteLine("Ingrese el nombre de la película:");
+    string nombrePelicula = Console.ReadLine();
+
+    Console.WriteLine("¿Cuál es la duración de la película? (60-180 min):");
+    while (!int.TryParse(Console.ReadLine(), out duracionPeli) || duracionPeli < 60 || duracionPeli > 180)
+    {
+        Console.WriteLine("Error: Ingrese una duración válida para película (60-180 min):");
+    }
+    cumpleDuracion = true;
+
+    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 ):");
+    int clasificacionUNO;
+    while (!int.TryParse(Console.ReadLine(), out clasificacionUNO) || clasificacionUNO < 1 || clasificacionUNO > 3)
+    {
+        Console.WriteLine("Error: Ingrese clasificación valida:");
+    }
+
+    Console.WriteLine("Ingrese la hora programada (0-23):");
+    int horaUno;
+    while (!int.TryParse(Console.ReadLine(), out horaUno) || horaUno < 0 || horaUno > 23)
+    {
+        Console.WriteLine("Error: Ingrese una hora válida (0-23):");
+    }
+
+    if (clasificacionUNO == 1)
+    {
+        cumpleHora = true;
+    }
+    else if (clasificacionUNO == 2)
+    {
+        if (horaUno >= 6 && horaUno <= 22)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+    else if (clasificacionUNO == 3)
+    {
+        if (horaUno >= 22 || horaUno <= 5)
+        {
+            cumpleHora = true;
+        }
+        else
+        {
+            cumpleHora = false;
+        }
+    }
+
+    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto)_");
+    int produccionUno;
+    while (!int.TryParse(Console.ReadLine(), out produccionUno) || produccionUno < 1 || produccionUno > 3)
+    {
+        Console.WriteLine("Error: Ingrese un nivel válido.\n");
+    }
+
+    if (produccionUno == 1 && clasificacionUNO == 3)
+    {
+        cumpleProduccion = false;
+    }
+    else
+    {
+        cumpleProduccion = true;
+    }
+
+    Console.WriteLine("\nResultado de la Evaluación ");
+    totalEvaluados++;
+    if (cumpleDuracion && cumpleHora && cumpleProduccion)
+    {
+        if (produccionUno == 3 || duracionPeli > 120 || (horaUno >= 20 && horaUno <= 23))
+        {
+            impactoAlto++;
+            revision++;
+            Console.WriteLine("Estado: Enviar a revisión");
+            Console.WriteLine("Razón: Cumple reglas pero tiene impacto Alto.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else if (produccionUno == 2 || (duracionPeli >= 60 && duracionPeli <= 120))
+        {
+            impactoMedio++;
+            publicados++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: Cumple reglas y tiene impacto Medio.\n");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+        else
+        {
+            impactoBajo++;
+            publicados++;
+            Console.WriteLine("Estado: Publicar");
+            Console.WriteLine("Razón: El contenido tiene impacto Bajo");
+            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.ReadKey();
+        }
+    }
+    else
+    {
+        rechazados++;
+        Console.WriteLine("Estado: Rechazar");
+        if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.");
+        if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
+        Console.WriteLine("Precione ENTER o cualquier letra para ir al menú");
+        Console.ReadKey();
     }
 }
