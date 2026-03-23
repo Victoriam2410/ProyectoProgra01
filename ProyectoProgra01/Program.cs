@@ -514,3 +514,19 @@ void ValidacionDatosE()//envivo
         Console.ReadKey();
     }
 }
+void Reglas()//case 2
+{
+    Console.Clear();
+    Console.WriteLine("  \nREGLAS OBLIGATORIAS\n ");
+    Console.WriteLine("Reglas de clasificación y horario:\n");
+    Console.WriteLine("• Todo público: cualquier hora\r\n• +13: entre 6:00 y 22:00 horas\r\n• +18: entre 22:00 y 5:00 horas\n");
+    Console.WriteLine("Reglas de duración por tipo\n");
+    Console.WriteLine("• Película: 60–180 minutos\r\n• Serie: 20 a 90 minutos\r\n• Documental: 30 a 120 minutos\r\n• Evento en vivo: 30 a 240 minutos\r\n");
+    Console.WriteLine("Si la duración está fuera del rango permitido, el contenido no cumple la validación técnica.\n");
+    Console.WriteLine("Reglas de producción\n");
+    Console.WriteLine("• Producción baja solo válida para Todo público o +13\r\n• Producción media o alta válida para cualquier clasificación");
+    Console.WriteLine("Clasificación de Impacto");
+    Console.WriteLine("Impacto ALTO: Producción alta, duración > 120 min o horario entre 20:00 y 23:00.\n");
+    Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
+    Console.ReadKey();
+}
