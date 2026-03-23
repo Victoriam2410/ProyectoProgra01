@@ -597,3 +597,21 @@ void Reinicio()//case 4
     Console.WriteLine("Presione ENTER o cualquier letra para continuar.\n");
     Console.ReadKey();
 }
+void Salida()//Case 5
+{
+    Console.Clear();
+    Console.WriteLine("   Resumen Final ");
+    Console.WriteLine($"Contenido de Evaluados: {totalEvaluados}");
+    Console.WriteLine($"Contenido de publicados: {publicados}");
+    Console.WriteLine($"Contenido de rechazados: {rechazados}");
+    if (totalEvaluados > 0)
+    {
+        porcentajeAprov = (publicados / totalEvaluados) * 100;
+        porcentajeRech = (rechazados / totalEvaluados) * 100;
+        Console.WriteLine($"El porcentaje de aprovación: {porcentajeAprov:F2}%");
+        Console.WriteLine($"El porcentaje de Rechazados: {porcentajeRech:F2}%");
+        Console.WriteLine($"Impacto predominante: {predominante}");
+    }
+    Console.WriteLine("Presione cualquier tecla para cerrar el programa.");
+    Console.ReadKey();
+}
