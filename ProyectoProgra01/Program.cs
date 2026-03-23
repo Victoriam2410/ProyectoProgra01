@@ -1,6 +1,5 @@
 ﻿//variables globales
 int option = 0;
-int tipo;
 int duracionPeli;
 bool cumpleDuracion = false;
 bool cumpleHora = false;
@@ -20,13 +19,18 @@ MenuPrincipal();
 //inicio del menu
 void MenuPrincipal()
 {
-do
+    Console.Clear();
+    Console.WriteLine("  SIMULADOR DE DECISIONES PARA PLATAFORMA DE STREAMING\n ");
+    do
     {
-        Console.WriteLine("  SIMULADOR DE DECISIONES PARA PLATAFORMA DE STREAMING\n ");
         Console.WriteLine("             Menú Principal  ");
         Console.WriteLine("Bienvenido al menú principal");
-        Console.WriteLine("¿sCuál de las opciones desea elejir?");
-        Console.WriteLine("\n1.Evaluar Contenido\n 2.Politicas\n 3.Estadisticas\n 4.Reiniciar Estadisticas\n 5.Salir.");
+        Console.WriteLine("¿Cuál de las opciones desea elejir?");
+        Console.WriteLine("\n1.Evaluar Contenido\n 2.Politicas\n 3.Estadísticas\n 4.Reiniciar Estadísticas\n 5.Salir.");
+        while (!int.TryParse(Console.ReadLine(), out option) || option < 1 || option > 5)
+        {
+            Console.WriteLine("Error: Ingrese las opciones válida. (1, 2, 3, 4, 5):");
+        }
         switch (option)
         {
             case 1:
@@ -39,11 +43,14 @@ do
                 Estadisticas();
                 break;
             case 4:
+                Reinicio();
                 break;
             case 5:
+                Salida();
                 break;
         }
-    } while (option != 5) ;
+    } while (option != 5);
+
 }
 void PedirDatos()
 {
@@ -57,12 +64,12 @@ void PedirDatos()
     for (int i = 1; i <= cantidad; i++)
     {
         Console.Clear();
-        Console.WriteLine("Ingrese el tipo de contenido (1.película, 2.serie, 3.documental, 4.evento en vivo):");
+        Console.WriteLine("Ingrese el tipo de contenido (1.Película, 2.Serie, 3.Documental, 4.Evento en vivo):");
         int tipo;
 
         while (!int.TryParse(Console.ReadLine(), out tipo) || tipo < 1 || tipo > 4)
         {
-            Console.WriteLine("Error: Ingrese las opciones validas. (1, 2, 3, 4):");
+            Console.WriteLine("Error: Ingrese las opciones válida. (1, 2, 3, 4):");
         }
 
         switch (tipo)
@@ -82,6 +89,7 @@ void PedirDatos()
         }
     }
 }
+
 void ValidacionDatosP() //pelicula
 {
     Console.WriteLine("Ingrese el nombre de la película:");
@@ -94,11 +102,11 @@ void ValidacionDatosP() //pelicula
     }
     cumpleDuracion = true;
 
-    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 ):");
+    Console.WriteLine("Ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 ):");
     int clasificacionUNO;
     while (!int.TryParse(Console.ReadLine(), out clasificacionUNO) || clasificacionUNO < 1 || clasificacionUNO > 3)
     {
-        Console.WriteLine("Error: Ingrese clasificación valida:");
+        Console.WriteLine("Error: Ingrese clasificación válida:");
     }
 
     Console.WriteLine("Ingrese la hora programada (0-23):");
@@ -135,7 +143,7 @@ void ValidacionDatosP() //pelicula
         }
     }
 
-    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto):");
+    Console.WriteLine("Nivel de Producción (1.Bajo, 2.Medio, 3.Alto):");
     int produccionUno;
     while (!int.TryParse(Console.ReadLine(), out produccionUno) || produccionUno < 1 || produccionUno > 3)
     {
@@ -161,7 +169,7 @@ void ValidacionDatosP() //pelicula
             revision++;
             Console.WriteLine("Estado: Enviar a revisión");
             Console.WriteLine("Razón: Cumple reglas pero tiene impacto Alto.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else if (produccionUno == 2 || (duracionPeli >= 60 && duracionPeli <= 120))
@@ -170,7 +178,7 @@ void ValidacionDatosP() //pelicula
             publicados++;
             Console.WriteLine("Estado: Publicar");
             Console.WriteLine("Razón: Cumple reglas y tiene impacto Medio.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else
@@ -179,7 +187,7 @@ void ValidacionDatosP() //pelicula
             publicados++;
             Console.WriteLine("Estado: Publicar");
             Console.WriteLine("Razón: El contenido tiene impacto Bajo");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
     }
@@ -189,7 +197,7 @@ void ValidacionDatosP() //pelicula
         Console.WriteLine("Estado: Rechazar");
         if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.");
         if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
-        Console.WriteLine("Precione ENTER o cualquier letra para ir al menú");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
         Console.ReadKey();
     }
 }
@@ -198,7 +206,7 @@ void ValidacionDatoS() //Serie
     Console.WriteLine("Ingrese el nombre de la Serie:");
     string nombreSerie = Console.ReadLine();
 
-    Console.WriteLine("¿Cual es la duración de la Serie? (20-90 min):");
+    Console.WriteLine("¿Cuál es la duración de la Serie? (20-90 min):");
     int duracionSerie;
     while (!int.TryParse(Console.ReadLine(), out duracionSerie) || duracionSerie < 20 || duracionSerie > 90)
     {
@@ -206,7 +214,7 @@ void ValidacionDatoS() //Serie
     }
     cumpleDuracion = true;
 
-    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
+    Console.WriteLine("Ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
     int clasificacionDOS;
     while (!int.TryParse(Console.ReadLine(), out clasificacionDOS) || clasificacionDOS < 1 || clasificacionDOS > 3)
     {
@@ -273,8 +281,8 @@ void ValidacionDatoS() //Serie
             impactoAlto++;
             revision++;
             Console.WriteLine("Estado: ENVIAR A REVISIÓN");
-            Console.WriteLine("Razón: El contenido tiene impacto ALTO.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Razón: El contenido tiene impacto alto.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else if (produccionDos == 2 || (duracionSerie >= 60 && duracionSerie <= 120))
@@ -282,8 +290,8 @@ void ValidacionDatoS() //Serie
             impactoMedio++;
             publicados++;
             Console.WriteLine("Estado: Publicar");
-            Console.WriteLine("Razón: El contenido tiene impacto MEDIO.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Razón: El contenido tiene impacto medio.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else
@@ -291,8 +299,8 @@ void ValidacionDatoS() //Serie
             impactoBajo++;
             publicados++;
             Console.WriteLine("Estado: Publicar");
-            Console.WriteLine("Razón: El contenido tiene impacto BAJO.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Razón: El contenido tiene impacto bajo.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
     }
@@ -302,7 +310,7 @@ void ValidacionDatoS() //Serie
         Console.WriteLine("Estado: Rechazar");
         if (!cumpleHora) Console.WriteLine("Razón: El horario no es apto para la clasificación.");
         if (!cumpleProduccion) Console.WriteLine("Razón: Producción baja no permitida para la clasificación.\n");
-        Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
         Console.ReadKey();
     }
 }
@@ -311,7 +319,7 @@ void ValidarDatosD() //Documental
     Console.WriteLine("Ingrese el nombre del Documental:");
     string nombreDocumental = Console.ReadLine();
 
-    Console.WriteLine("¿Cual es la duración del Documental? (30-120 min):");
+    Console.WriteLine("¿Cuál es la duración del Documental? (30-120 min):");
     int duracionDocu;
     while (!int.TryParse(Console.ReadLine(), out duracionDocu) || duracionDocu < 30 || duracionDocu > 120)
     {
@@ -319,7 +327,7 @@ void ValidarDatosD() //Documental
     }
     cumpleDuracion = true;
 
-    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
+    Console.WriteLine("Ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
     int clasificacionTres;
     while (!int.TryParse(Console.ReadLine(), out clasificacionTres) || clasificacionTres < 1 || clasificacionTres > 3)
     {
@@ -388,7 +396,7 @@ void ValidarDatosD() //Documental
             impactoAlto++;
             Console.WriteLine("Estado: ENVIAR A REVISIÓN");
             Console.WriteLine("Razón: Cumple reglas pero tiene impacto alto.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else if (produccionTres == 2)
@@ -397,7 +405,7 @@ void ValidarDatosD() //Documental
             impactoMedio++;
             Console.WriteLine("Estado: Publicar");
             Console.WriteLine("Razón: Cumple reglas e impacto medio.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else
@@ -406,7 +414,7 @@ void ValidarDatosD() //Documental
             impactoBajo++;
             Console.WriteLine("Estado: Publicar");
             Console.WriteLine("Razón: Cumple reglas e impacto bajo.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
     }
@@ -416,7 +424,7 @@ void ValidarDatosD() //Documental
         Console.WriteLine("Estado: Rechazar");
         if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.\n");
         if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
-        Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
         Console.ReadKey();
     }
 }
@@ -425,7 +433,7 @@ void ValidacionDatosE()//envivo
     Console.WriteLine("Ingrese el nombre del evento en vivo:");
     string nombreEvento = Console.ReadLine();
 
-    Console.WriteLine("¿Cual es la duración del evento en vivo? (30-240 min):");
+    Console.WriteLine("¿Cuál es la duración del evento en vivo? (30-240 min):");
     int duracionEvento;
     while (!int.TryParse(Console.ReadLine(), out duracionEvento) || duracionEvento < 30 || duracionEvento > 240)
     {
@@ -433,11 +441,11 @@ void ValidacionDatosE()//envivo
     }
     cumpleDuracion = true;
 
-    Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
+    Console.WriteLine("Ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
     int clasificacionCuatro;
     while (!int.TryParse(Console.ReadLine(), out clasificacionCuatro) || clasificacionCuatro < 1 || clasificacionCuatro > 3)
     {
-        Console.WriteLine("Error: Ingrese clasificación valida.");
+        Console.WriteLine("Error: Ingrese clasificación válida.");
     }
 
     Console.WriteLine("Ingrese la hora programada (0-23):");
@@ -617,13 +625,13 @@ void Salida()//Case 5
     Console.Clear();
     Console.WriteLine("   Resumen Final ");
     Console.WriteLine($"Contenido de Evaluados: {totalEvaluados}");
-    Console.WriteLine($"Contenido de publicados: {publicados}");
-    Console.WriteLine($"Contenido de rechazados: {rechazados}");
+    Console.WriteLine($"Contenido de Publicados: {publicados}");
+    Console.WriteLine($"Contenido de Rechazados: {rechazados}");
     if (totalEvaluados > 0)
     {
         porcentajeAprov = (publicados / totalEvaluados) * 100;
         porcentajeRech = (rechazados / totalEvaluados) * 100;
-        Console.WriteLine($"El porcentaje de aprovación: {porcentajeAprov:F2}%");
+        Console.WriteLine($"El porcentaje de Aprovación: {porcentajeAprov:F2}%");
         Console.WriteLine($"El porcentaje de Rechazados: {porcentajeRech:F2}%");
         Console.WriteLine($"Impacto predominante: {predominante}");
     }
