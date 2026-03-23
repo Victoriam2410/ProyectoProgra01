@@ -12,6 +12,9 @@ int revision = 0;
 int impactoAlto = 0;
 int impactoMedio = 0;
 int impactoBajo = 0;
+string predominante = null;
+double porcentajeAprov = 0;
+double porcentajeRech = 0;
 MenuPrincipal();
 //inicio del menu
 void MenuPrincipal()
@@ -29,9 +32,10 @@ do
                 PedirDatos();
                 break;
             case 2:
-            
+                Reglas();
                 break;
             case 3:
+                Estadisticas();
                 break;
             case 4:
                 break;
@@ -529,4 +533,51 @@ void Reglas()//case 2
     Console.WriteLine("Impacto ALTO: Producción alta, duración > 120 min o horario entre 20:00 y 23:00.\n");
     Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
     Console.ReadKey();
+}
+void Estadisticas()//Case3
+{
+    Console.Clear();
+    if (totalEvaluados > 0)
+    {
+        Console.WriteLine($"El total de evaluados es: {totalEvaluados}");
+        Console.WriteLine($"El total de publicados es: {publicados}");
+        Console.WriteLine($"El total de rechazados es: {rechazados}");
+        if (totalEvaluados > 0)
+        {
+            porcentajeAprov = (publicados / totalEvaluados) * 100;
+            porcentajeRech = (rechazados / totalEvaluados) * 100;
+            Console.WriteLine($"El porcentaje de aprovados es: {porcentajeAprov:F2}%");
+            Console.WriteLine($"El porcentaje de Rechazados es: {porcentajeRech:F2}%");
+            if (impactoAlto == impactoMedio && impactoAlto == impactoBajo && impactoMedio == impactoBajo)
+            {
+                predominante = "Empate Total";
+            }
+            else if (impactoAlto >= impactoMedio && impactoAlto >= impactoBajo)
+            {
+                predominante = "Alto";
+            }
+            else if (impactoMedio >= impactoAlto && impactoMedio >= impactoBajo)
+            {
+                predominante = "Medio";
+            }
+            else
+            {
+                predominante = "Bajo";
+            }
+        }
+        else
+        {
+            Console.WriteLine("No hay datos registrados en esta sesión.");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
+            Console.ReadKey();
+        }
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
+        Console.ReadKey();
+    }
+    else
+    {
+        Console.WriteLine("Aún no hay datos registrados.\n");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
+        Console.ReadKey();
+    }
 }
