@@ -581,3 +581,19 @@ void Estadisticas()//Case3
         Console.ReadKey();
     }
 }
+void Reinicio()//case 4
+{
+    Console.Clear();
+    totalEvaluados = 0;
+    publicados = 0;
+    rechazados = 0;
+    revision = 0;
+    impactoAlto = 0;
+    impactoMedio = 0;
+    impactoBajo = 0;
+    porcentajeAprov = 0;
+    porcentajeRech = 0;
+    Console.WriteLine("Estadísticas Reiniciadas.");
+    Console.WriteLine("Presione ENTER o cualquier letra para continuar.\n");
+    Console.ReadKey();
+}
