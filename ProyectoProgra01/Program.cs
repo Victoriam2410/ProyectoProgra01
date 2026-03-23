@@ -15,6 +15,7 @@ int impactoBajo = 0;
 string predominante = null;
 double porcentajeAprov = 0;
 double porcentajeRech = 0;
+int cantidad;
 MenuPrincipal();
 //inicio del menu
 void MenuPrincipal()
@@ -46,25 +47,39 @@ do
 }
 void PedirDatos()
 {
-    Console.WriteLine("Ingrese el tipo de contenido (1.película, 2.serie, 3.documental, 4.evento en vivo):");
-    while (!int.TryParse(Console.ReadLine(), out tipo) || tipo < 1 || tipo > 4)
+    Console.WriteLine("¿Cuántos contenidos desea evaluar?");
+
+    while (!int.TryParse(Console.ReadLine(), out cantidad) || cantidad < 1)
     {
-        Console.WriteLine("Error: Ingrese las opciones validas. (1, 2, 3, 4):");
+        Console.WriteLine("Error: Ingrese una cantidad válida (mayor a 0):");
     }
-    switch (tipo)
+
+    for (int i = 1; i <= cantidad; i++)
     {
-        case 1:
-            ValidacionDatosP();
-            break;
-        case 2:
-            ValidacionDatoS();
-            break;
-        case 3:
-            ValidarDatosD();
-            break;
-        case 4:
-            ValidacionDatosE();
-            break;
+        Console.Clear();
+        Console.WriteLine("Ingrese el tipo de contenido (1.película, 2.serie, 3.documental, 4.evento en vivo):");
+        int tipo;
+
+        while (!int.TryParse(Console.ReadLine(), out tipo) || tipo < 1 || tipo > 4)
+        {
+            Console.WriteLine("Error: Ingrese las opciones validas. (1, 2, 3, 4):");
+        }
+
+        switch (tipo)
+        {
+            case 1:
+                ValidacionDatosP();
+                break;
+            case 2:
+                ValidacionDatoS();
+                break;
+            case 3:
+                ValidarDatosD();
+                break;
+            case 4:
+                ValidacionDatosE();
+                break;
+        }
     }
 }
 void ValidacionDatosP() //pelicula
@@ -120,7 +135,7 @@ void ValidacionDatosP() //pelicula
         }
     }
 
-    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto)_");
+    Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto):");
     int produccionUno;
     while (!int.TryParse(Console.ReadLine(), out produccionUno) || produccionUno < 1 || produccionUno > 3)
     {
