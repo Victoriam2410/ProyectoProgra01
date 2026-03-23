@@ -56,8 +56,10 @@ void PedirDatos()
             ValidacionDatoS();
             break;
         case 3:
+            ValidarDatosD();
             break;
         case 4:
+            ValidacionDatosE();
             break;
     }
 }
@@ -399,40 +401,40 @@ void ValidarDatosD() //Documental
         Console.ReadKey();
     }
 }
-void ValidarDatosD() //Documental
+void ValidacionDatosE()//envivo
 {
-    Console.WriteLine("Ingrese el nombre del Documental:");
-    string nombreDocumental = Console.ReadLine();
+    Console.WriteLine("Ingrese el nombre del evento en vivo:");
+    string nombreEvento = Console.ReadLine();
 
-    Console.WriteLine("¿Cual es la duración del Documental? (30-120 min):");
-    int duracionDocu;
-    while (!int.TryParse(Console.ReadLine(), out duracionDocu) || duracionDocu < 30 || duracionDocu > 120)
+    Console.WriteLine("¿Cual es la duración del evento en vivo? (30-240 min):");
+    int duracionEvento;
+    while (!int.TryParse(Console.ReadLine(), out duracionEvento) || duracionEvento < 30 || duracionEvento > 240)
     {
-        Console.WriteLine("Error: Ingrese una duración válida para documental (30-120 min):");
+        Console.WriteLine("Error: Ingrese una duración válida para evento en vivo (30-240 min):");
     }
     cumpleDuracion = true;
 
     Console.WriteLine("ingrese la clasificación ( 1.- todo público, 2.- +13, 3.- +18 )");
-    int clasificacionTres;
-    while (!int.TryParse(Console.ReadLine(), out clasificacionTres) || clasificacionTres < 1 || clasificacionTres > 3)
+    int clasificacionCuatro;
+    while (!int.TryParse(Console.ReadLine(), out clasificacionCuatro) || clasificacionCuatro < 1 || clasificacionCuatro > 3)
     {
         Console.WriteLine("Error: Ingrese clasificación valida.");
     }
 
     Console.WriteLine("Ingrese la hora programada (0-23):");
-    int horaTres;
-    while (!int.TryParse(Console.ReadLine(), out horaTres) || horaTres < 0 || horaTres > 23)
+    int horaCuatro;
+    while (!int.TryParse(Console.ReadLine(), out horaCuatro) || horaCuatro < 0 || horaCuatro > 23)
     {
         Console.WriteLine("Error: Ingrese una hora válida (0-23):");
     }
 
-    if (clasificacionTres == 1)
+    if (clasificacionCuatro == 1)
     {
         cumpleHora = true;
     }
-    else if (clasificacionTres == 2)
+    else if (clasificacionCuatro == 2)
     {
-        if (horaTres >= 6 && horaTres <= 22)
+        if (horaCuatro >= 6 && horaCuatro <= 22)
         {
             cumpleHora = true;
         }
@@ -441,9 +443,9 @@ void ValidarDatosD() //Documental
             cumpleHora = false;
         }
     }
-    else if (clasificacionTres == 3)
+    else if (clasificacionCuatro == 3)
     {
-        if (horaTres >= 22 || horaTres <= 5)
+        if (horaCuatro >= 22 || horaCuatro <= 5)
         {
             cumpleHora = true;
         }
@@ -452,16 +454,15 @@ void ValidarDatosD() //Documental
             cumpleHora = false;
         }
     }
-
 
     Console.WriteLine("Nivel de Producción (1.bajo, 2.medio, 3.alto)");
-    int produccionTres;
-    while (!int.TryParse(Console.ReadLine(), out produccionTres) || produccionTres < 1 || produccionTres > 3)
+    int produccionCuatro;
+    while (!int.TryParse(Console.ReadLine(), out produccionCuatro) || produccionCuatro < 1 || produccionCuatro > 3)
     {
         Console.WriteLine("Error: Ingrese un nivel válido.");
     }
 
-    if (produccionTres == 1 && clasificacionTres == 3)
+    if (produccionCuatro == 1 && clasificacionCuatro == 3)
     {
         cumpleProduccion = false;
     }
@@ -470,27 +471,27 @@ void ValidarDatosD() //Documental
         cumpleProduccion = true;
     }
 
-    Console.WriteLine("\n   Resultado de la Evaluación   ");
+    Console.WriteLine("\n  Resultado de la Evaluación ");
     totalEvaluados++;
 
     if (cumpleDuracion && cumpleHora && cumpleProduccion)
     {
-        if (produccionTres == 3 || (horaTres >= 20 && horaTres <= 23))
+        if (produccionCuatro == 3 || duracionEvento > 120 || (horaCuatro >= 20 && horaCuatro <= 23))
         {
             revision++;
             impactoAlto++;
             Console.WriteLine("Estado: ENVIAR A REVISIÓN");
-            Console.WriteLine("Razón: Cumple reglas pero tiene impacto alto.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Razón: Cumple reglas pero tiene impacto alto.");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
-        else if (produccionTres == 2)
+        else if (produccionCuatro == 2)
         {
             publicados++;
             impactoMedio++;
             Console.WriteLine("Estado: Publicar");
-            Console.WriteLine("Razón: Cumple reglas e impacto medio.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Razón: Cumple reglas e impacto medio.");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
         else
@@ -498,8 +499,8 @@ void ValidarDatosD() //Documental
             publicados++;
             impactoBajo++;
             Console.WriteLine("Estado: Publicar");
-            Console.WriteLine("Razón: Cumple reglas e impacto bajo.\n");
-            Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+            Console.WriteLine("Razón: Cumple reglas e impacto bajo.");
+            Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
             Console.ReadKey();
         }
     }
@@ -507,9 +508,9 @@ void ValidarDatosD() //Documental
     {
         rechazados++;
         Console.WriteLine("Estado: Rechazar");
-        if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.\n");
+        if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.");
         if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación.\n");
-        Console.WriteLine("Presione ENTER o cualquier letra para ir al menú.\n");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
         Console.ReadKey();
     }
 }
