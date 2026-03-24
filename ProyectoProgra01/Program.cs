@@ -1,7 +1,6 @@
 ﻿// variables globales
 int option = 0;
-int duracionPeli;
-string nombre = null;
+string nombre = "";
 bool cumpleDuracion = false;
 bool cumpleHora = false;
 bool cumpleProduccion = true;
@@ -12,7 +11,7 @@ int revision = 0;
 int impactoAlto = 0;
 int impactoMedio = 0;
 int impactoBajo = 0;
-string predominante = null;
+string predominante ="";
 double porcentajeAprov = 0;
 double porcentajeRech = 0;
 double porcentajerev = 0;
@@ -31,7 +30,7 @@ void MenuPrincipal()
 
         while (!int.TryParse(Console.ReadLine(), out option) || option < 1 || option > 5)
         {
-            Console.WriteLine("Error: Ingrese una opción válida (1-5):");
+            Console.WriteLine("Error: Ingrese una opción válida (1, 2, 3, 4, 5):");
         }
 
         switch (option)
@@ -60,7 +59,7 @@ void PedirDatos()
     Console.WriteLine("¿Cuántos contenidos desea evaluar?");
     while (!int.TryParse(Console.ReadLine(), out cantidad) || cantidad < 1)
     {
-        Console.WriteLine("Error: Ingrese una cantidad mayor a 0:");
+        Console.WriteLine("Error: Ingrese una cantidad válida:");
     }
 
     for (int i = 1; i <= cantidad; i++)
@@ -90,7 +89,7 @@ void PedirDatos()
     }
 }
 
-void EvaluarContenido(string contenido, int min, int max)
+void EvaluarContenido(string contenido, int min, int max)//case1
 {
     Console.WriteLine($"Ingrese el nombre del {contenido}:");
     nombre = Console.ReadLine();
@@ -192,7 +191,7 @@ void EvaluarContenido(string contenido, int min, int max)
     Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
     Console.ReadKey();
 }
-void Reglas()
+void Reglas()//case 2
 {
     Console.Clear();
     Console.WriteLine("  \nREGLAS OBLIGATORIAS\n ");
@@ -210,7 +209,7 @@ void Reglas()
 }
 
 
-void Estadisticas()
+void Estadisticas()//case3
 {
     Console.Clear();
     if (totalEvaluados > 0)
