@@ -25,7 +25,8 @@ void MenuPrincipal()
     Console.WriteLine("  SIMULADOR DE DECISIONES PARA PLATAFORMA DE STREAMING\n ");
     do
     {
-        Console.WriteLine("             Menú Principal  ");
+        Console.WriteLine("             Menú Principal\n   ");
+        Console.WriteLine("     ¡Bienvenido al menú principal!\nEscoja una de las opciones disponibles.");
         Console.WriteLine("1.Evaluar Contenido\n2.Politicas\n3.Estadísticas\n4.Reiniciar Estadísticas\n5.Salir.");
 
         while (!int.TryParse(Console.ReadLine(), out option) || option < 1 || option > 5)
@@ -133,9 +134,18 @@ void EvaluarContenido(string contenido, int min, int max)//case1
         Console.WriteLine("Error: Ingrese una hora válida (0-23):");
     }
 
-    if (clasificaion == 1) cumpleHora = true;
-    else if (clasificaion == 2) cumpleHora = (hora >= 6 && hora <= 22);
-    else if (clasificaion == 3) cumpleHora = (hora >= 22 || hora <= 5);
+    if (clasificaion == 1)
+    {
+        cumpleHora = true;
+    }
+    else if (clasificaion == 2)
+    {
+        cumpleHora = (hora >= 6 && hora <= 22);
+    }
+    else if (clasificaion == 3)
+    {
+        cumpleHora = (hora >= 22 || hora <= 5);
+    }
 
     Console.WriteLine("Nivel de Producción (1.Bajo, 2.Medio, 3.Alto):");
     int produccion;
@@ -180,16 +190,32 @@ void EvaluarContenido(string contenido, int min, int max)//case1
 
         if (!cumpleDuracion)
         {
-            if (duracion < min) Console.WriteLine($"Faltan minutos para el rango (Mínimo: {min}).");
-            else if (duracion > max) Console.WriteLine($"Excede los minutos permitidos (Máximo: {max}).");
-            else Console.WriteLine("Duración no válida.");
+            if (duracion < min)
+            {
+                Console.WriteLine($"Razón:Faltan minutos para el rango (Mínimo: {min}).");
+            }
+            else if (duracion > max)
+            {
+                Console.WriteLine($"Razón:Excede los minutos permitidos (Máximo: {max}).");
+            }
+            else
+            {
+                Console.WriteLine("Duración no válida.");
+            }
         }
-        if (!cumpleHora) Console.WriteLine("El horario no es apto para la clasificación.");
-        if (!cumpleProduccion) Console.WriteLine("Producción baja no permitida para la clasificación +18.\n");
+        if (!cumpleHora)
+        {
+            Console.WriteLine("Razón:El horario no es apto para la clasificación.");
+        }
+        if (!cumpleProduccion)
+        {
+            Console.WriteLine("Razón:Producción baja no permitida para la clasificación +18.\n");
+        }
     }
 
     Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
     Console.ReadKey();
+    Console.Clear();
 }
 void Reglas()//case 2
 {
@@ -206,6 +232,7 @@ void Reglas()//case 2
     Console.WriteLine("Impacto ALTO: Producción alta, duración > 120 min o horario entre 20:00 y 23:00.\n");
     Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
     Console.ReadKey();
+    Console.Clear();
 }
 
 
@@ -220,6 +247,7 @@ void Estadisticas()//case3
         Console.WriteLine($"Total de evaluados es: {totalEvaluados}");
         Console.WriteLine($"El total de Publicados es: {publicados}");
         Console.WriteLine($"El total de Rechazados es: {rechazados}");
+        Console.WriteLine($"El total en Revision es: {revision}");
         Console.WriteLine($"El porcentaje de Aprovación: {porcentajeAprov:F2}%");
         Console.WriteLine($"El porcentaje de Rechazados: {porcentajeRech:F2}%");
         Console.WriteLine($"El porcentaje de revisión: {porcentajerev:F2}%");
@@ -235,10 +263,18 @@ void Estadisticas()//case3
         {
             predominante = "Bajo";
         }
-        Console.WriteLine($"Impacto Predominante: {predominante}");
+        Console.WriteLine($"Impacto Predominante: {predominante}\n");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
+        Console.ReadKey();
+        Console.Clear();
     }
-    else Console.WriteLine("No hay datos.");
-    Console.ReadKey();
+    else
+    {
+        Console.WriteLine("No hay datos.\n");
+        Console.WriteLine("Presione ENTER o cualquier tecla para continuar.\n");
+        Console.ReadKey();
+        Console.Clear();
+    }
 }
 
 void Reinicio()//case 4
@@ -253,9 +289,10 @@ void Reinicio()//case 4
     impactoBajo = 0;
     porcentajeAprov = 0;
     porcentajeRech = 0;
-    Console.WriteLine("Estadísticas Reiniciadas.");
+    Console.WriteLine("Estadísticas Reiniciadas.\n");
     Console.WriteLine("Presione ENTER o cualquier letra para continuar.\n");
     Console.ReadKey();
+    Console.Clear();
 }
 void Salida()//Case 5
 {
@@ -274,7 +311,7 @@ void Salida()//Case 5
         Console.WriteLine($"El porcentaje de Aprovación: {porcentajeAprov:F2}%");
         Console.WriteLine($"El porcentaje de Rechazados: {porcentajeRech:F2}%");
         Console.WriteLine($"El porcentaje de revisión: {porcentajerev:F2}%");
-        Console.WriteLine($"Impacto predominante: {predominante}");
+        Console.WriteLine($"Impacto predominante: {predominante}\n");
     }
     Console.WriteLine("Presione cualquier tecla para cerrar el programa.");
     Console.ReadKey();
